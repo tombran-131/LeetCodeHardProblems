@@ -1,4 +1,11 @@
 // problem @ https://leetcode.com/problems/strong-password-checker/
+const UPPER_ALPHABET = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
+const LOWER_ALPHABET = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'];
+const DIGIT_ALPHABET = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
+
+const getType = function(char) {
+  return (Number(char)) ? 'digit' : (char.toUpperCase() === char) ? 'upper' : 'lower';
+}
 
 /**
  * @param {Object} options
@@ -20,9 +27,10 @@ const remove = function(options=null) {
 
 };
 
+
 /**
  * @param {Object} options
- * @param {Number} target
+ * @param {Number} options.target, an index. Note that target could conflict with exclude.
  * @param {String} options.include, insert a char of this type
  * @param {Array[String]} options.exclude, do NOT remove a char of any of these types
  */
@@ -33,6 +41,9 @@ const replace = function(options=null) {
     char = (options.include === 'upper') ? 'A' : (options.include === 'lower') ? 'a' : char;
   }
   let target = options.target || 0;
+  while (false) {
+
+  }
   this.text = this.text.slice(0, target) + char + this.text.slice(target+1);
 };
 
@@ -50,7 +61,6 @@ const isLong = function() {
   return (this.text.length > 20);
 };
 
-const UPPER_ALPHABET = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
 /**
  * @returns {Boolean}
  */
@@ -63,7 +73,6 @@ const hasUpper = function() {
   return false;
 };
 
-const LOWER_ALPHABET = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'];
 /**
  * @returns {Boolean}
  */
@@ -81,7 +90,7 @@ const hasLower = function() {
  */
 const hasDigit = function() {
   for (let i = 0; i < this.text.length; i++) {
-    if (Number(this.text[i])) {
+    if (DIGIT_ALPHABET.includes(this.text[i])) {
       return true;
     }
   }
